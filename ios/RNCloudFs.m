@@ -272,11 +272,14 @@ RCT_EXPORT_METHOD(copyToCloud:(NSDictionary *)options
 
         NSURL* uniqueFile = targetFile;
 
-        int count = 1;
-        while([fileManager fileExistsAtPath:uniqueFile.path]) {
-            NSString *uniqueName = [NSString stringWithFormat:@"%i.%@", count, name];
-            uniqueFile = [dir URLByAppendingPathComponent:uniqueName];
-            count++;
+//         int count = 1;
+//         while([fileManager fileExistsAtPath:uniqueFile.path]) {
+//             NSString *uniqueName = [NSString stringWithFormat:@"%i.%@", count, name];
+//             uniqueFile = [dir URLByAppendingPathComponent:uniqueName];
+//             count++;
+//         }
+        if([fileManager fileExistsAtPath:uniqueFile.path]){
+            [fileManager removeItemAtURL:uniqueFile error:nil];
         }
 
         RCTLogTrace(@"Target file: %@", uniqueFile.path);
